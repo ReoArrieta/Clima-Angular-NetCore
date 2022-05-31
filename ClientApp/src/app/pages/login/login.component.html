@@ -1,0 +1,62 @@
+<mat-card>
+    <br>
+    <mat-card-title>Iniciar sesión</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="formSignin"
+        autocomplete="off"
+        (ngSubmit)="signin(formSignin.value)"
+      >
+        <p>
+          <mat-form-field appearance="legacy">
+            <mat-label>Correo electrónico</mat-label>
+            <input
+              matInput
+              placeholder="Ej. rafael@ejemplo.com"
+              (paste)="(false)"
+              formControlName="correo"
+              required
+            />
+            <mat-error *ngIf="correo?.errors?.['required']">Requerido</mat-error>
+            <mat-error *ngIf="correo?.errors?.['pattern']">Correo inválido</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="legacy">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'text' : 'password'"
+              placeholder="*********"
+              (paste)="(false)"
+              formControlName="contraseña"
+              required
+            />
+            <mat-error *ngIf="formSignin.invalid">Requerido</mat-error>
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility" : "visibility_off" }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </p>
+        <p>
+          <a mat-button color="primary" routerLink="/registrarse"
+            >¿No tienes cuenta?</a
+          >
+        </p>
+        <div>
+          <button mat-raised-button color="primary">
+            {{ loading ? 'Cargando' : 'Ingresar'}}
+            <mat-progress-bar *ngIf="loading" mode="buffer"></mat-progress-bar>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

@@ -1,0 +1,181 @@
+<mat-card>
+    <br />
+    <mat-card-title>Regístrate</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="formSignup"
+        autocomplete="off"
+        (ngSubmit)="signup(formSignup.value)"
+      >
+        <p>
+          <mat-form-field appearance="legacy" class="right">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              placeholder="Ej. Rafael"
+              formControlName="nombre"
+              required
+            />
+            <mat-error *ngIf="formValue('nombre')?.errors?.['required']"
+              >Requerido</mat-error
+            >
+            <mat-error *ngIf="formValue('nombre')?.errors?.['pattern']"
+              >Solo letras</mat-error
+            >
+            <mat-error
+              *ngIf="
+                formValue('nombre')?.errors?.['minlength'] &&
+                !formValue('nombre')?.errors?.['pattern']
+              "
+              >Mínimo 3 caráctares</mat-error
+            >
+            <mat-error
+              *ngIf="
+                formValue('nombre')?.errors?.['maxlength'] &&
+                !formValue('nombre')?.errors?.['pattern']
+              "
+              >Máximo 20 caráctares</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="legacy">
+            <mat-label>Apellido</mat-label>
+            <input
+              matInput
+              placeholder="Ej. Ortega"
+              formControlName="apellido"
+              required
+            />
+            <mat-error *ngIf="formValue('apellido')?.errors?.['required']"
+              >Requerido</mat-error
+            >
+            <mat-error *ngIf="formValue('apellido')?.errors?.['pattern']"
+              >Solo letras</mat-error
+            >
+            <mat-error *ngIf="formValue('apellido')?.errors?.['minlength']"
+              >Mínimo 3 caráctares</mat-error
+            >
+            <mat-error *ngIf="formValue('apellido')?.errors?.['maxlength']"
+              >Máximo 20 caráctares</mat-error
+            >
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="legacy" class="right">
+            <mat-label>Correo electrónico</mat-label>
+            <input
+              matInput
+              placeholder="Ej. rafael@ejemplo.com"
+              formControlName="correo"
+              required
+            />
+            <mat-error *ngIf="formValue('correo')?.errors?.['required']"
+              >Requerido</mat-error
+            >
+            <mat-error *ngIf="formValue('correo')?.errors?.['singleEmail']"
+              >Correo en uso</mat-error
+            >
+            <mat-error *ngIf="formValue('correo')?.errors?.['mailValidation']">
+              {{ formValue("correo")?.errors?.['mailValidation'].message }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                formValue('correo')?.errors?.['pattern'] &&
+                !formValue('correo')?.errors?.['mailValidation']
+              "
+              >Correo no válido</mat-error
+            >
+            <mat-error
+              *ngIf="
+                formValue('correo')?.errors?.['minlength'] &&
+                !formValue('correo')?.errors?.['pattern']
+              "
+              >Mínimo 11 caráctares</mat-error
+            >
+            <mat-error *ngIf="formValue('correo')?.errors?.['maxlength']"
+              >Máximo 50 caráctares</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="legacy">
+            <mat-label>Repetir Correo electrónico</mat-label>
+            <input
+              matInput
+              placeholder="Ej. rafael@ejemplo.com"
+              formControlName="repetirCorreo"
+              required
+            />
+            <mat-error *ngIf="formValue('repetirCorreo')?.errors?.['required']"
+              >Requerido</mat-error
+            >
+            <mat-error
+              *ngIf="formValue('repetirCorreo')?.errors?.['repeatMailValidation']"
+              >No coincide</mat-error
+            >
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="legacy" class="right">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="*********"
+              formControlName="contraseña"
+              required
+            />
+            <mat-error *ngIf="formValue('contraseña')?.errors?.['required']"
+              >Requerido</mat-error
+            >
+            <mat-error *ngIf="formValue('contraseña')?.errors?.['passwordValidation']">
+              {{ formValue("contraseña")?.errors?.['passwordValidation'].message }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                formValue('contraseña')?.errors?.['minlength'] &&
+                !formValue('contraseña')?.errors?.['passwordValidation']
+              "
+              >Mínimo 8 caráctares</mat-error
+            >
+            <mat-error
+              *ngIf="
+                formValue('password')?.errors?.['maxlength'] &&
+                !formValue('password')?.errors?.['passwordValidation']
+              "
+              >Máximo 30 caráctares</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field appearance="legacy">
+            <mat-label>Repetir Contraseña</mat-label>
+            <input
+              matInput
+              type="password"
+              placeholder="*********"
+              formControlName="repetirContraseña"
+              required
+            />
+            <mat-error *ngIf="formValue('repetirContraseña')?.errors?.['required']"
+              >Requerido</mat-error
+            >
+            <mat-error
+              *ngIf="
+                formValue('repetirContraseña')?.errors?.['repeatPasswordValidation']
+              "
+            >
+              No coinciden
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <a mat-button color="primary" routerLink="/ingresar"
+            >¿Ya tienes cuenta? - inicia sesión</a
+          >
+        </p>
+        <div>
+          <button mat-raised-button color="primary">
+            {{ loading ? "Cargando" : "Resgistrarse" }}
+            <mat-progress-bar *ngIf="loading" mode="buffer"></mat-progress-bar>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
